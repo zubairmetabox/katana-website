@@ -18,13 +18,13 @@ export default function HomePage() {
 
         {/* Star particles placeholder */}
         <div className="absolute inset-0 pointer-events-none">
-          {Array.from({ length: 20 }).map((_, i) => (
+          {[5,15,25,35,45,55,65,75,85,95,10,20,30,40,50,60,70,80,90,3].map((left, i) => (
             <div
               key={i}
               className="absolute w-1 h-1 rounded-full bg-white/20"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                left: `${left}%`,
+                top: `${(left * 3 + i * 7) % 100}%`,
               }}
             />
           ))}
