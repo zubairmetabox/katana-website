@@ -37,6 +37,9 @@ export default function FrontendLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/fml2kbd.css" />
+      </head>
       <body>
         <Navbar />
         <main>{children}</main>
