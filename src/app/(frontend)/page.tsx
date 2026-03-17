@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero: PLACEHOLDER for Three.js scroll animation ── */}
-      <section className="relative min-h-screen bg-black overflow-hidden pt-[77px]">
+      <section className="relative min-h-screen bg-black overflow-hidden pt-[45px] lg:pt-[77px]">
         {/* Dark background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a1a20] to-black" />
 
