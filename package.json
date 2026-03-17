@@ -1,0 +1,67 @@
+{
+  "name": "katana-website",
+  "version": "1.0.0",
+  "description": "KATANA fishing lures brand website — Next.js 15 + Payload CMS 3",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@payloadcms/db-postgres": "3.79.1",
+    "@payloadcms/next": "3.79.1",
+    "@payloadcms/richtext-lexical": "3.79.1",
+    "@payloadcms/storage-vercel-blob": "3.79.1",
+    "@payloadcms/ui": "3.79.1",
+    "@types/leaflet": "^1.9.18",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
+    "framer-motion": "^12.33.0",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.563.0",
+    "next": "15.4.11",
+    "payload": "3.79.1",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "react-hook-form": "^7.71.1",
+    "react-leaflet": "^5.0.0",
+    "resend": "^4.5.1",
+    "sharp": "0.34.2",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "22.19.9",
+    "@types/react": "19.2.9",
+    "@types/react-dom": "19.2.3",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "15.4.11",
+    "prettier": "^3.4.2",
+    "tailwindcss": "^4.1.18",
+    "tsx": "4.21.0",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^9 || ^10"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["sharp", "esbuild", "unrs-resolver"],
+    "overrides": {
+      "undici": ">=7.24.0",
+      "dompurify": ">=3.3.2",
+      "file-type": ">=21.3.1",
+      "ajv": ">=8.18.0"
+    }
+  }
+}

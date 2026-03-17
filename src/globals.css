@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* ─── Futura PT (self-hosted) ─────────────────────────────────── */
+@font-face {
+  font-family: 'Futura PT';
+  src: url('/fonts/FuturaPT-Heavy.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  src: url('/fonts/FuturaPT-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  src: url('/fonts/FuturaPT-Demi.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  src: url('/fonts/FuturaPT-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  src: url('/fonts/FuturaPT-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── CSS Custom Properties ────────────────────────────────────── */
+:root {
+  /* Brand colours */
+  --color-brand-black: #000000;
+  --color-teal-dark: #014454;
+  --color-teal-mid: #008290;
+  --color-teal-accent: #00d9d0;
+  --color-teal-accent-2: #01bcb8;
+  --color-blue-light: #b3d4e3;
+  --color-blue-light-2: #a1d4e1;
+  --color-blue-pale: #e9f1f6;
+  --color-text-light: #d3d0c9;
+  --color-text-light-2: #dadada;
+  --color-input-dark: #141414;
+  --color-input-mid: #333333;
+
+  /* Nav */
+  --nav-height: 77px;
+
+  /* Layout */
+  --max-content-width: 1366px;
+}
+
+/* ─── Tailwind v4 theme extensions ─────────────────────────────── */
+@theme {
+  --font-family-futura: 'Futura PT', sans-serif;
+  --font-family-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-family-inter: 'Inter', system-ui, sans-serif;
+
+  --color-teal-dark: #014454;
+  --color-teal-mid: #008290;
+  --color-teal-accent: #00d9d0;
+  --color-teal-accent-2: #01bcb8;
+  --color-blue-light: #b3d4e3;
+  --color-blue-pale: #e9f1f6;
+  --color-input-dark: #141414;
+}
+
+/* ─── Base styles ───────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Futura PT', sans-serif;
+  font-weight: 400;
+  background-color: #000;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Utility classes ───────────────────────────────────────────── */
+.font-futura-heavy {
+  font-family: 'Futura PT', sans-serif;
+  font-weight: 900;
+}
+
+.font-futura-bold {
+  font-family: 'Futura PT', sans-serif;
+  font-weight: 700;
+}
+
+.font-futura-demi {
+  font-family: 'Futura PT', sans-serif;
+  font-weight: 600;
+}
+
+.font-futura-medium {
+  font-family: 'Futura PT', sans-serif;
+  font-weight: 500;
+}
+
+.font-futura-book {
+  font-family: 'Futura PT', sans-serif;
+  font-weight: 400;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-inter {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.max-content {
+  max-width: var(--max-content-width);
+  margin-left: auto;
+  margin-right: auto;
+}
