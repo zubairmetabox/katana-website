@@ -143,7 +143,7 @@ export default async function ProductDetailPage({ params }: Props) {
                       key={i}
                       className="w-8 h-8 rounded-full border-2 border-white/20"
                       style={{ backgroundColor: c.hex ?? '#888' }}
-                      title={c.name}
+                      title={c.name ?? undefined}
                     />
                   ))
                 ) : (
