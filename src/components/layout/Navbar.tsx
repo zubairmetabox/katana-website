@@ -29,10 +29,8 @@ export function Navbar() {
                 className="flex items-center justify-center w-[47px] h-[34px] rounded-[15px] bg-white/10 hover:bg-white/20 transition-colors"
                 aria-label="Open menu"
               >
-                <svg width="20" height="13" viewBox="0 0 20 13" fill="none" aria-hidden="true">
-                  <rect width="20" height="2" rx="1" fill="white" />
-                  <rect y="5.5" width="20" height="2" rx="1" fill="white" />
-                  <rect y="11" width="20" height="2" rx="1" fill="white" />
+                <svg width="29" height="16" viewBox="0 0 29 16" fill="none" aria-hidden="true">
+                  <path d="M4.70801 7.91602H23.9561M1.5 1.5H27.1641M7.91602 14.332H20.748" stroke="white" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round"/>
                 </svg>
               </button>
             </div>
@@ -114,10 +112,8 @@ export function Navbar() {
                 className="flex items-center justify-center w-[30px] h-[21px] rounded-[11px] bg-white/10 hover:bg-white/20 transition-colors"
                 aria-label="Open menu"
               >
-                <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
-                  <rect width="14" height="1.5" rx="0.75" fill="white" />
-                  <rect y="4.25" width="14" height="1.5" rx="0.75" fill="white" />
-                  <rect y="8.5" width="14" height="1.5" rx="0.75" fill="white" />
+                <svg width="17" height="10" viewBox="0 0 29 16" fill="none" aria-hidden="true">
+                  <path d="M4.70801 7.91602H23.9561M1.5 1.5H27.1641M7.91602 14.332H20.748" stroke="white" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round"/>
                 </svg>
               </button>
             </div>
