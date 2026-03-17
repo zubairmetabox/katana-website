@@ -116,7 +116,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <span className="font-futura-book text-[#dadada] text-[21px]">Fish Attract</span>
               <div className="flex flex-wrap gap-3">
                 {product.fishAttract && product.fishAttract.length > 0 ? (
-                  product.fishAttract.map((f, i) => (
+                  product.fishAttract.map((f: { name?: string | null }, i) => (
                     <span key={i} className="font-futura-book text-white text-[21px]">
                       {f.name}
                     </span>
