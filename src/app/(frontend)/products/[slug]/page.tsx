@@ -138,7 +138,7 @@ export default async function ProductDetailPage({ params }: Props) {
               <span className="font-futura-book text-[#dadada] text-[21px]">Color</span>
               <div className="flex gap-2">
                 {product.colors && product.colors.length > 0 ? (
-                  product.colors.map((c, i) => (
+                  product.colors.map((c: { hex?: string | null; name?: string | null }, i) => (
                     <div
                       key={i}
                       className="w-8 h-8 rounded-full border-2 border-white/20"
