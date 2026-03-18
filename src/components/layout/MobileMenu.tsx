@@ -1,17 +1,28 @@
 'use client'
 
 import Link from 'next/link'
-import { X, Home, Package, Users, Phone, MapPin, BookOpen } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Home, ShoppingBag, Info, Contact, MapPin, CircleHelp } from 'lucide-react'
 
+// Desktop: overflow items not shown in the main notch nav
+const desktopLinks = [
+  { label: 'Guides', href: '/guides', Icon: CircleHelp },
+  { label: 'Where are we', href: '/where-are-we', Icon: MapPin },
+]
+
+// Mobile: full nav (Figma 3:548 — Home, Product, About, Contact, Where are we)
 const mobileLinks = [
   { label: 'Home', href: '/', Icon: Home },
-  { label: 'Product', href: '/products', Icon: Package },
-  { label: 'About', href: '/about', Icon: Users },
-  { label: 'Contact', href: '/contact', Icon: Phone },
-  { label: 'Where Are We', href: '/where-are-we', Icon: MapPin },
-  { label: 'Guides', href: '/guides', Icon: BookOpen },
+  { label: 'Product', href: '/products', Icon: ShoppingBag },
+  { label: 'About', href: '/about', Icon: Info },
+  { label: 'Contact', href: '/contact', Icon: Contact },
+  { label: 'Where are we', href: '/where-are-we', Icon: MapPin },
 ]
+
+const panelVariants = {
+  hidden: { opacity: 0, scale: 0.92, y: -6 },
+  visible: { opacity: 1, scale: 1, y: 0 },
+}
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -23,71 +34,73 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[60] bg-black/50"
-            onClick={onClose}
-          />
+          {/* Transparent click-outside backdrop */}
+          <div className="fixed inset-0 z-[60]" onClick={onClose} />
 
-          {/* Panel */}
+          {/* ── Desktop overflow panel (≥1024px) ──────────────────────
+              Figma 3:1345 — 277×168px, rounded-[20px], bg #022730
+              Positioned below the burger button in the left zone       */}
           <motion.div
-            initial={{ x: '-100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
-            className="fixed left-0 top-0 bottom-0 z-[70] w-[320px] max-w-[85vw] bg-[#002030] flex flex-col"
+            variants={panelVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            style={{ transformOrigin: 'top left' }}
+            className="hidden lg:block fixed top-[90px] left-[118px] z-[70] w-[277px] bg-[#022730] rounded-[20px] overflow-hidden"
           >
-            {/* Close button */}
-            <div className="flex items-center justify-between h-[77px] px-6">
-              <span className="font-futura-bold text-white text-sm uppercase tracking-widest">Menu</span>
-              <button
-                onClick={onClose}
-                className="flex items-center justify-center w-[34px] h-[34px] rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-                aria-label="Close menu"
-              >
-                <X size={16} className="text-white" />
-              </button>
-            </div>
-
-            {/* Nav links */}
-            <nav className="flex-1 px-6 py-8 flex flex-col gap-2">
-              {mobileLinks.map(({ label, href, Icon }, i) => (
-                <motion.div
+            <nav className="flex flex-col gap-[22px] px-8 py-7">
+              {desktopLinks.map(({ label, href, Icon }) => (
+                <Link
                   key={href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i, duration: 0.25 }}
+                  href={href}
+                  onClick={onClose}
+                  className="flex items-center gap-[18px] text-white hover:text-[#89c4d6] transition-colors group"
                 >
-                  <Link
-                    href={href}
-                    onClick={onClose}
-                    className="flex items-center gap-4 py-4 border-b border-white/10 group"
-                  >
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 group-hover:bg-[#00d9d0]/20 transition-colors">
-                      <Icon size={18} className="text-[#00d9d0]" />
-                    </div>
-                    <span className="font-futura-bold text-white text-[18px] uppercase tracking-wider group-hover:text-[#00d9d0] transition-colors">
-                      {label}
-                    </span>
-                  </Link>
-                </motion.div>
+                  <Icon
+                    size={22}
+                    strokeWidth={1.5}
+                    className="shrink-0 transition-colors"
+                  />
+                  <span className="font-futura-book text-[30px] leading-none whitespace-nowrap">
+                    {label}
+                  </span>
+                </Link>
               ))}
             </nav>
+          </motion.div>
 
-            {/* Bottom CTA */}
-            <div className="px-6 py-8">
-              <Link
-                href="/become-a-reseller"
-                onClick={onClose}
-                className="block w-full text-center font-futura-bold text-black text-sm uppercase tracking-widest bg-white rounded-full py-3 hover:bg-[#e9f1f6] transition-colors"
-              >
-                Become a Reseller
-              </Link>
-            </div>
+          {/* ── Mobile panel (<1024px) ──────────────────────────────────
+              Figma 3:548 — 181×232px, rounded-[13px], bg #022730
+              Positioned below the burger button at the top-left         */}
+          <motion.div
+            variants={panelVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            style={{ transformOrigin: 'top left' }}
+            className="lg:hidden fixed top-[55px] left-[12px] z-[70] w-[181px] bg-[#022730] rounded-[13px] overflow-hidden"
+          >
+            <nav className="flex flex-col gap-[10px] px-[22px] py-[18px]">
+              {mobileLinks.map(({ label, href, Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={onClose}
+                  className="flex items-center gap-[14px] text-white hover:text-[#89c4d6] transition-colors group"
+                >
+                  <Icon
+                    size={16}
+                    strokeWidth={1.5}
+                    className="shrink-0 transition-colors"
+                  />
+                  <span className="font-futura-book text-[16px] leading-none whitespace-nowrap">
+                    {label}
+                  </span>
+                </Link>
+              ))}
+            </nav>
           </motion.div>
         </>
       )}
