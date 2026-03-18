@@ -3,6 +3,8 @@ import { Inter, Cormorant_Garamond } from 'next/font/google'
 import '@/globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
+import { PageTransition } from '@/components/layout/PageTransition'
+import { NavigationProgress } from '@/components/layout/NavigationProgress'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -41,8 +43,11 @@ export default function FrontendLayout({
         <link rel="stylesheet" href="https://use.typekit.net/fml2kbd.css" />
       </head>
       <body>
+        <NavigationProgress />
         <Navbar />
-        <main>{children}</main>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
         <div className="bg-[#014454] pt-15 pb-3">
           <Footer />
         </div>
