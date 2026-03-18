@@ -68,7 +68,13 @@ export default buildConfig({
   sharp,
   plugins: [
     vercelBlobStorage({
-      enabled: true,
+      // Only enable on Vercel deployments (process.env.VERCEL === '1').
+      // Locally, Payload falls back to the filesystem (staticDir in Media).
+      // IMPORTANT: the Blob store must be PUBLIC — the plugin does not support
+      // private stores. In Vercel Dashboard → Storage → Blob → delete the
+      // current private store and create a new one with Public access, then
+      // update BLOB_READ_WRITE_TOKEN in Vercel environment variables.
+      enabled: process.env.VERCEL === '1',
       collections: {
         media: true,
       },
