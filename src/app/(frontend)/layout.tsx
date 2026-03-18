@@ -43,7 +43,9 @@ export default function FrontendLayout({
       <body>
         <Navbar />
         <main>{children}</main>
-        <Footer />
+        <div className="bg-[#014454] pt-15 pb-3">
+          <Footer />
+        </div>
       </body>
     </html>
   )
