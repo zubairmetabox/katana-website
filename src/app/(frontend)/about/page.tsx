@@ -7,7 +7,13 @@ export const metadata: Metadata = {
     'KATANA was founded on a simple belief: that a superior process creates a superior product.',
 }
 
+// Seeded via scripts/seed.ts — stored in public/seed-media/
+// Once Vercel Blob store is switched to public, re-upload via admin and replace with CMS query
+const FISH_IMAGE = '/seed-media/katana-about-fish-hero.jpg'
+
 export default function AboutPage() {
+  const fishImageUrl = FISH_IMAGE
+
   return (
     <>
       {/* ══════════════════════════════════════════════════════════
@@ -28,8 +34,7 @@ export default function AboutPage() {
           </span>
         </div>
 
-        {/* Lure / product photo — right side, rotated, CMS image */}
-        {/* Desktop: large, bleeds right edge; mobile: smaller, centered-right */}
+        {/* Fish / lure photo — right side, rotated */}
         <div
           aria-hidden
           className="absolute pointer-events-none select-none"
@@ -41,19 +46,16 @@ export default function AboutPage() {
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <div
-            className="w-full bg-white/5 rounded"
+          <img
+            src={fishImageUrl}
+            alt="Fish caught with a Katana lure"
+            className="w-full h-auto object-contain"
             style={{ aspectRatio: '800/1422' }}
-          >
-            <div className="w-full h-full flex items-center justify-center text-white/10 font-futura-book text-xs">
-              [Lure photo — upload via CMS]
-            </div>
-          </div>
+          />
         </div>
 
         {/* Headline + button */}
         <div className="relative z-10 max-w-[1366px] mx-auto px-6 lg:px-10 py-16 lg:py-20">
-          {/* Headline — Futura Medium + Cormorant Regular for "Has" / "Story" */}
           <h1
             className="text-[#e9f1f6] leading-[1.08] mb-8 lg:mb-10"
             style={{ fontSize: 'clamp(42px, 6.5vw, 75px)', maxWidth: '520px' }}
@@ -65,7 +67,6 @@ export default function AboutPage() {
             <span className="font-futura-medium">.</span>
           </h1>
 
-          {/* "Contact us" — glass pill from Figma */}
           <Link
             href="/contact"
             className="inline-block font-futura-bold text-[#e9f1f6] uppercase rounded-[4px] px-5 py-[6px] hover:bg-white/20 transition-colors"
@@ -81,7 +82,7 @@ export default function AboutPage() {
 
       {/* ══════════════════════════════════════════════════════════
           BRAND STORY — light blue #b3d4e3
-          Desktop: text left, fish photo right (overflows from hero)
+          Desktop: text left, fish photo right
           Mobile:  text full-width, fish photo below rotated
       ══════════════════════════════════════════════════════════ */}
       <section className="bg-[#b3d4e3] overflow-hidden">
@@ -113,17 +114,16 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* ── Right (desktop): fish / lure photo ── */}
-            {/* Mobile: hidden here, shown below rotated */}
+            {/* ── Right (desktop): fish photo ── */}
             <div className="hidden lg:flex items-start justify-center pt-4">
               <div className="w-full max-w-[520px]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <div
-                  className="w-full rounded bg-[#014454]/10 flex items-center justify-center font-futura-book text-[#014454]/30 text-sm"
-                  style={{ aspectRatio: '3/4' }}
-                >
-                  [Fish / lure photo — upload via CMS]
-                </div>
+                <img
+                  src={fishImageUrl}
+                  alt="Fish caught with a Katana lure"
+                  className="w-full h-auto object-contain rounded"
+                  style={{ aspectRatio: '3/4', objectFit: 'cover' }}
+                />
               </div>
             </div>
 
@@ -135,12 +135,13 @@ export default function AboutPage() {
               className="w-[75%] max-w-[300px]"
               style={{ transform: 'rotate(-11.2deg)' }}
             >
-              <div
-                className="w-full rounded bg-[#014454]/10 flex items-center justify-center font-futura-book text-[#014454]/30 text-xs"
-                style={{ aspectRatio: '300/535' }}
-              >
-                [Fish photo]
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={fishImageUrl}
+                alt="Fish caught with a Katana lure"
+                className="w-full h-auto rounded"
+                style={{ aspectRatio: '300/535', objectFit: 'cover' }}
+              />
             </div>
           </div>
         </div>
