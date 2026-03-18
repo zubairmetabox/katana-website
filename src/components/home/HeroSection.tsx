@@ -12,29 +12,48 @@ export function HeroSection() {
   const { scrollYProgress } = useScroll({ target: containerRef })
 
   useEffect(() => {
-    let rafId = 0
-    let latestProgress = 0
+    const video = videoRef.current
+    if (!video) return
+
+    // Target time we want the video at — updated on every scroll event
+    let targetTime = 0
+    // Whether the video decoder is currently processing a seek
+    let isSeeking = false
+
+    function seek(time: number) {
+      if (!video || !video.duration) return
+      // Clamp and snap to nearest frame boundary (30 fps) to avoid jitter
+      const fps = 30
+      const clamped = Math.max(0, Math.min(time, video.duration))
+      const snapped = Math.round(clamped * fps) / fps
+
+      // Skip if change is less than one frame — avoids pointless re-decodes
+      if (Math.abs(snapped - video.currentTime) < 1 / fps) return
+
+      isSeeking = true
+      video.currentTime = snapped
+    }
+
+    function onSeeked() {
+      isSeeking = false
+      // If scroll moved while we were decoding, seek to latest position now
+      if (Math.abs(targetTime - video!.currentTime) > 1 / 30) {
+        seek(targetTime)
+      }
+    }
+
+    video.addEventListener('seeked', onSeeked)
 
     const unsubscribe = scrollYProgress.on('change', (progress) => {
-      latestProgress = progress
-      if (rafId) return
-      rafId = requestAnimationFrame(() => {
-        rafId = 0
-        const video = videoRef.current
-        if (!video || !video.duration) return
-        const target = latestProgress * video.duration
-        // fastSeek is less precise but dramatically smoother for scrubbing
-        if (typeof video.fastSeek === 'function') {
-          video.fastSeek(target)
-        } else {
-          video.currentTime = target
-        }
-      })
+      if (!video.duration) return
+      targetTime = progress * video.duration
+      // Only issue a seek if the decoder is free
+      if (!isSeeking) seek(targetTime)
     })
 
     return () => {
       unsubscribe()
-      cancelAnimationFrame(rafId)
+      video.removeEventListener('seeked', onSeeked)
     }
   }, [scrollYProgress])
 
