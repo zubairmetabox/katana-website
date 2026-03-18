@@ -9,6 +9,7 @@ interface ProductCardProps {
   heroImage?: {
     url?: string
     alt?: string
+    blurDataURL?: string | null
   }
   className?: string
 }
@@ -30,6 +31,8 @@ export function ProductCard({ name, slug, tagline, heroImage, className }: Produ
             alt={heroImage.alt || name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
+            placeholder={heroImage.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={heroImage.blurDataURL ?? undefined}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-white/20 font-futura-book text-sm">

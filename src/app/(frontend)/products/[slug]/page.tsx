@@ -72,6 +72,8 @@ export default async function ProductDetailPage({ params }: Props) {
                 fill
                 className="object-contain"
                 priority
+                placeholder={(heroImage as any).blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={(heroImage as any).blurDataURL ?? undefined}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-white/20 font-futura-book text-sm">
@@ -161,6 +163,8 @@ export default async function ProductDetailPage({ params }: Props) {
                 alt={(gallery[0].image as any).alt || product.name}
                 fill
                 className="object-contain"
+                placeholder={(gallery[0].image as any).blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={(gallery[0].image as any).blurDataURL ?? undefined}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-white/20 font-futura-book text-sm">

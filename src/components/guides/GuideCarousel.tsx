@@ -12,7 +12,7 @@ interface Guide {
   slug: string
   type: string
   excerpt?: string
-  carouselImage?: { url?: string; alt?: string } | null
+  carouselImage?: { url?: string; alt?: string; blurDataURL?: string | null } | null
 }
 
 interface GuideCarouselProps {
@@ -62,6 +62,8 @@ export function GuideCarousel({ guides }: GuideCarouselProps) {
                 fill
                 className="object-cover"
                 priority
+                placeholder={guide.carouselImage.blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={guide.carouselImage.blurDataURL ?? undefined}
               />
             ) : (
               <div className="absolute inset-0 bg-[#002a35] flex items-center justify-center text-white/20 font-futura-book text-sm">

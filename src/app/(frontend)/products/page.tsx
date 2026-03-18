@@ -52,6 +52,8 @@ export default async function ProductsPage() {
                 alt={(featured.heroImage as any).alt || featured.name}
                 fill
                 className="object-contain"
+                placeholder={(featured.heroImage as any).blurDataURL ? 'blur' : 'empty'}
+                blurDataURL={(featured.heroImage as any).blurDataURL ?? undefined}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-white/20 font-futura-book text-sm">

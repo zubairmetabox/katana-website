@@ -45,6 +45,8 @@ export default async function GuideDetailPage({ params }: Props) {
             fill
             className="object-cover"
             priority
+            placeholder={(heroImage as any).blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={(heroImage as any).blurDataURL ?? undefined}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/70" />
         </section>

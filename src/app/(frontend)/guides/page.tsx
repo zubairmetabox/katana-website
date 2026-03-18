@@ -36,7 +36,7 @@ export default async function GuidesPage({ searchParams }: { searchParams: Searc
     excerpt: g.excerpt ?? undefined,
     carouselImage:
       g.carouselImage && typeof g.carouselImage === 'object'
-        ? { url: (g.carouselImage as any).url, alt: (g.carouselImage as any).alt }
+        ? { url: (g.carouselImage as any).url, alt: (g.carouselImage as any).alt, blurDataURL: (g.carouselImage as any).blurDataURL ?? null }
         : null,
   }))
 
