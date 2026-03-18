@@ -74,7 +74,7 @@ export default buildConfig({
       // private stores. In Vercel Dashboard → Storage → Blob → delete the
       // current private store and create a new one with Public access, then
       // update BLOB_READ_WRITE_TOKEN in Vercel environment variables.
-      enabled: process.env.VERCEL === '1',
+      enabled: !!process.env.BLOB_READ_WRITE_TOKEN,
       collections: {
         media: true,
       },

@@ -1,8 +1,9 @@
 /**
- * Seed-only Payload config — identical to main config but without Vercel Blob plugin.
- * Files are stored locally in public/seed-media/ and served by Next.js static serving.
+ * Seed-only Payload config — identical to main config but with Vercel Blob
+ * enabled when BLOB_READ_WRITE_TOKEN is set (public store required).
  * Use this config ONLY in the seed script.
  */
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import {
   lexicalEditor,
@@ -39,15 +40,7 @@ export default buildConfig({
   },
   collections: [
     Users,
-    {
-      ...Media,
-      upload: {
-        // Spread the real upload config (imageSizes, adminThumbnail, mimeTypes)
-        ...(typeof Media.upload === 'object' ? Media.upload : {}),
-        // Override only the storage directory so files go to public/seed-media/
-        staticDir: path.resolve(dirname, '../public/seed-media'),
-      },
-    },
+    Media,
     Products,
     Guides,
     Retailers,
@@ -79,5 +72,11 @@ export default buildConfig({
     },
   }),
   sharp,
-  // No vercelBlobStorage plugin — files stored locally in public/seed-media/
+  plugins: [
+    vercelBlobStorage({
+      enabled: !!process.env.BLOB_READ_WRITE_TOKEN,
+      collections: { media: true },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
 })

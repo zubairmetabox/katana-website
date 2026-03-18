@@ -35,6 +35,11 @@ next-env.d.ts
 
 /media
 
+# generated image variants and seed duplicates
+/public/seed-media/*-[0-9]*.jpg
+/public/seed-media/*-[0-9]*.png
+/public/video-hero/
+
 # payload
 src/payload-types.ts
 
