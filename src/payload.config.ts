@@ -23,6 +23,7 @@ import { ContactSubmissions } from './collections/ContactSubmissions'
 import { ResellerInquiries } from './collections/ResellerInquiries'
 import { SiteSettings } from './globals/SiteSettings'
 import { Navigation } from './globals/Navigation'
+import { AboutPage } from './globals/AboutPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,7 +39,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Products, Guides, Retailers, ContactSubmissions, ResellerInquiries],
-  globals: [SiteSettings, Navigation],
+  globals: [SiteSettings, Navigation, AboutPage],
   editor: lexicalEditor({
     features: () => [
       HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),

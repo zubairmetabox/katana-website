@@ -103,6 +103,16 @@ async function uploadMedia(
   payload: Awaited<ReturnType<typeof getPayload>>,
   asset: { url: string; alt: string; filename: string },
 ) {
+  // Reuse existing record if already seeded (idempotent)
+  const existing = await payload.find({
+    collection: 'media',
+    where: { filename: { equals: asset.filename } },
+    limit: 1,
+  })
+  if (existing.docs.length > 0) {
+    console.log(`  ↷ ${asset.filename} (existing id=${existing.docs[0]!.id})`)
+    return existing.docs[0]!
+  }
   console.log(`  ↓ ${asset.filename}`)
   const { data, mimeType, size } = await downloadAsset(asset.url)
   const result = await payload.create({
@@ -212,6 +222,8 @@ async function main() {
   ]
 
   for (const product of productDefs) {
+    const existing = await payload.find({ collection: 'products', where: { slug: { equals: product.slug } }, limit: 1 })
+    if (existing.docs.length > 0) { console.log(`  ↷ ${product.name} (existing)`); continue }
     const result = await payload.create({ collection: 'products', data: product })
     console.log(`  ✓ ${result.name} (id=${result.id})`)
   }
@@ -263,6 +275,8 @@ async function main() {
   ]
 
   for (const guide of guideDefs) {
+    const existing = await payload.find({ collection: 'guides', where: { slug: { equals: guide.slug } }, limit: 1 })
+    if (existing.docs.length > 0) { console.log(`  ↷ ${guide.title} (existing)`); continue }
     const result = await payload.create({ collection: 'guides', data: guide })
     console.log(`  ✓ ${result.title} (id=${result.id})`)
   }
@@ -330,9 +344,27 @@ async function main() {
   ]
 
   for (const retailer of retailerDefs) {
+    const existing = await payload.find({ collection: 'retailers', where: { name: { equals: retailer.name } }, limit: 1 })
+    if (existing.docs.length > 0) { console.log(`  ↷ ${retailer.name} (existing)`); continue }
     const result = await payload.create({ collection: 'retailers', data: retailer })
     console.log(`  ✓ ${result.name} — ${result.region} (id=${result.id})`)
   }
+
+  // ── 5. Page globals ─────────────────────────────────────────────────────
+  console.log('\n🌐 Seeding page globals...')
+
+  await payload.updateGlobal({
+    slug: 'about-page',
+    data: {
+      heroImage: media.heroFish.id,
+      brandImage: media.heroFish.id,
+      heroHeadline: 'Every Edge Has a Story.',
+      brandHeading: 'A Sharper Perspective',
+      brandBody:
+        'Katana was founded on a simple belief: that a superior process creates a superior product. We approach bait design from every angle, blending artistry with hydrodynamic science. Each lure is the result of meticulous engineering and relentless on-the-water testing, built not just to attract, but to provoke. Our mission is to craft tools of precision that instill confidence in every cast and trigger the most aggressive strikes.',
+    },
+  })
+  console.log('  ✓ about-page global')
 
   console.log('\n✅ Seed complete!\n')
   process.exit(0)

@@ -27,6 +27,7 @@ import { ContactSubmissions } from '../src/collections/ContactSubmissions'
 import { ResellerInquiries } from '../src/collections/ResellerInquiries'
 import { SiteSettings } from '../src/globals/SiteSettings'
 import { Navigation } from '../src/globals/Navigation'
+import { AboutPage } from '../src/globals/AboutPage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,8 +42,10 @@ export default buildConfig({
     {
       ...Media,
       upload: {
+        // Spread the real upload config (imageSizes, adminThumbnail, mimeTypes)
+        ...(typeof Media.upload === 'object' ? Media.upload : {}),
+        // Override only the storage directory so files go to public/seed-media/
         staticDir: path.resolve(dirname, '../public/seed-media'),
-        staticURL: '/seed-media',
       },
     },
     Products,
@@ -51,7 +54,7 @@ export default buildConfig({
     ContactSubmissions,
     ResellerInquiries,
   ],
-  globals: [SiteSettings, Navigation],
+  globals: [SiteSettings, Navigation, AboutPage],
   editor: lexicalEditor({
     features: () => [
       HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
